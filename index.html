@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <title>All-in-One · National Exam Revision</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=Cairo:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -124,7 +125,8 @@ nav.toc{display:flex; flex-direction:column; gap:20px;}
 .toc-check{flex:none; width:16px; height:16px; accent-color:var(--lang); cursor:pointer;}
 .cat-lang .tab{background:var(--lang);} .cat-ict .tab{background:var(--ict);} .cat-ethics .tab{background:var(--ethics);}
 
-.sidebar-foot{margin-top:auto; display:flex; gap:8px;}
+.sidebar-foot{margin-top:auto; display:flex; gap:8px; flex-wrap:wrap;}
+.now-playing{font-size:11px; color:var(--text-faint); text-align:center; padding:0 4px; line-height:1.3;}
 .icon-btn{
   flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
   background:var(--surface2); border:1px solid var(--line); color:var(--text-dim);
@@ -303,13 +305,13 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
             <span class="tab"></span><span class="ico">📘</span><span class="lbl">Classroom Management<small>Environment · Types · Code of Conduct</small></span>
             <input type="checkbox" class="toc-check" data-mod="cm">
           </a>
-          <a href="#assess" class="toc-link cat-lang" data-target="assess" data-kw="assessment practice analysis formative summative validity reliability washback authenticity writing scoring rubric holistic analytic">
+          <a href="#assess" class="toc-link cat-lang" data-target="assess" data-kw="assessment practice analysis formative summative validity reliability washback authenticity writing scoring rubric holistic analytic objective testing multiple-choice stem distractors norm-referenced criterion-referenced cloze dictation proficiency diagnostic aptitude test design framework docimology">
             <span class="tab"></span><span class="ico">📝</span><span class="lbl">Assessment &amp; Practice<small>Types · Principles · Testing · Writing</small></span>
             <input type="checkbox" class="toc-check" data-mod="assess">
           </a>
-          <a href="#mgmt" class="toc-link cat-lang" data-target="mgmt" data-kw="material development grammar reading writing vocabulary board management teacher roles classroom problems PPP PDP PDRE">
-            <span class="tab"></span><span class="ico">🧰</span><span class="lbl">MGMT 2 &amp; Material Dev<small>Grammar · Reading · Writing · Vocabulary</small></span>
-            <input type="checkbox" class="toc-check" data-mod="mgmt">
+          <a href="#planning" class="toc-link cat-lang" data-target="planning" data-kw="planning learning objectives smart smarta specific measurable achievable realistic reasonable time bound adjustable sequence of activities activating prior knowledge direct instruction guided independent practice closure">
+            <span class="tab"></span><span class="ico">🎯</span><span class="lbl">Planning, Learning<small>Objectives · SMART(A) · Activity Sequence</small></span>
+            <input type="checkbox" class="toc-check" data-mod="planning">
           </a>
           <a href="#bte" class="toc-link cat-lang" data-target="bte" data-kw="email templates paragraph verb types correlative conjunctions tag questions objects complements despite due to short answers grammar">
             <span class="tab"></span><span class="ico">✍️</span><span class="lbl">BTE 3 &amp; 4<small>Emails · Grammar · Functions</small></span>
@@ -353,7 +355,12 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
 
     <div class="sidebar-foot">
       <button class="icon-btn" id="themeToggle">🌙 <span id="themeLabel">Dark</span></button>
+      <button class="icon-btn" id="radioToggle" title="Play radio">
+        <span id="radioIcon">▶️</span> <span id="radioLabel">Radio</span>
+      </button>
     </div>
+    <div id="nowPlaying" class="now-playing hidden"></div>
+    <audio id="bgAudio" preload="none"></audio>
   </aside>
 
   <!-- ============ MAIN ============ -->
@@ -641,113 +648,206 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
           <p>Self-assessment, peer editing, and teacher conferencing are central. Writing is integrated with reading, listening and speaking — never fully isolated.</p>
         </div></details>
       </div>
+
+      <div class="card">
+        <h3>E. Objective Testing &amp; Multiple-Choice Items <span class="chip">Heaton, Ch. 3</span></h3>
+        <p><i>Subjective</i> and <i>objective</i> describe the <b>scoring</b> of a test, not its construction — every test is constructed subjectively by the tester. Since objective items usually have one correct answer, they can be scored mechanically/by computer, which explains their popularity for testing large numbers of candidates.</p>
+        <div class="key">Objective scoring is easy to achieve reliably; it is <b>no guarantee</b> that a test is valid. Reading and vocabulary lend themselves well to objective methods, but writing ability can only be satisfactorily tested through a subjective, performance-based task.</div>
+        <details class="acc"><summary>Strengths &amp; limitations</summary><div class="acc-body">
+          <ul>
+            <li>Objective items can be made as easy or difficult as the constructor wishes — they only <i>look</i> easier than subjective items.</li>
+            <li>Four or five plausible alternatives sufficiently reduce guessing; most learners guess from partial knowledge rather than wildly.</li>
+            <li>A much wider sample of grammar, vocabulary and phonology can be covered than in a subjective test.</li>
+            <li>Chief criticism: selecting one of several given options bears little relation to how language is actually <i>produced</i> in real life — multiple-choice tests <b>recognition</b>, not communicative use.</li>
+            <li>Multiple-choice items are among the most difficult and time-consuming to construct well; poorly written items are common where practitioners underestimate this effort.</li>
+          </ul>
+        </div></details>
+        <h4>Anatomy of a multiple-choice item</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Part</th><th>Definition</th></tr>
+          <tr><td>Stem</td><td>The initial part presenting the problem.</td></tr>
+          <tr><td>Options / alternatives / responses</td><td>The choices offered to the testee.</td></tr>
+          <tr><td>Key (answer / correct option)</td><td>The one correct or best option.</td></tr>
+          <tr><td>Distractors</td><td>The remaining, incorrect options — designed to attract testees who don't know the answer.</td></tr>
+        </table></div>
+        <p>Optimum number of options: <b>5</b> in most public tests (4 for grammar items, 5 for vocabulary/reading are common classroom recommendations); constructing good 5-option items is difficult, so 4 options are often recommended for classroom tests.</p>
+        <details class="acc"><summary>Key principles for writing items</summary><div class="acc-body">
+          <ol>
+            <li>Each item should have only <b>one</b> correct/best answer.</li>
+            <li>Test only <b>one feature</b> at a time — avoid "impure" items mixing grammar and vocabulary (sometimes unavoidable at elementary levels).</li>
+            <li>Every option must be grammatically correct when placed in the stem, except where grammar itself is being tested (e.g. rewrite "is a ...design­er/architect" as "is a/an ..." only once options are pre-formed correctly).</li>
+            <li>Items should be pitched at the testees' level; the context should be <i>easier</i> than the point being tested.</li>
+            <li>Keep stems as brief and clear as possible; provide short context for grammar items.</li>
+            <li>Arrange items in roughly increasing order of difficulty, with one or two easy "lead-in" items; exclude trivial areas.</li>
+          </ol>
+        </div></details>
+        <details class="acc"><summary>The stem</summary><div class="acc-body">
+          <p>Should present the problem clearly and concisely without irrelevant clues. It can take three forms: an <b>incomplete statement</b>, a <b>complete statement</b>, or a <b>question</b>. Any wording that would otherwise be repeated in every option should be moved into the stem (e.g. "…refer to travellers in" rather than repeating "travellers in" in A–D).</p>
+        </div></details>
+        <details class="acc"><summary>The correct option &amp; distractors</summary><div class="acc-body">
+          <p>The key should be unambiguously correct/best and checked by a second person. It should be about the <b>same length</b> as the distractors — a giveaway "longer, more qualified" correct option is a common flaw in reading/listening items.</p>
+          <p>Good distractors are plausible: attractive to testees who don't know the answer, based on (a) real mistakes seen in students' written work, (b) answers seen in previous tests, (c) teacher experience, or (d) contrastive L1–L2 analysis. Distractors that are too easy or too advanced fail to distract and effectively reduce the number of real options.</p>
+        </div></details>
+        <h4>Ways of recording answers</h4>
+        <ul>
+          <li>Write the correct option out in full in the blank</li>
+          <li>Write only the letter of the correct option</li>
+          <li>Put a tick/cross beside the correct option</li>
+          <li>Underline the correct option</li>
+          <li>Circle the letter of the correct option</li>
+        </ul>
+        <p>The key position (A, B, C, D…) should be distributed evenly across a test — either randomised or, where options have a natural order (dates, numbers), kept in that order.</p>
+      </div>
+
+      <div class="card">
+        <h3>F. Types of Foreign Language Tests <span class="chip">Types &amp; Purposes</span></h3>
+        <div class="table-scroll"><table>
+          <tr><th>Type</th><th>Purpose / Notes</th></tr>
+          <tr><td>Achievement (Attainment)</td><td>Measures the amount &amp; degree of control of language skills acquired during a specific course/period, judged against what has actually been taught — not the total corpus of the language.</td></tr>
+          <tr><td>Norm-Referenced</td><td>Traditional approach; produces a normal distribution of scores and compares each student's score against other students'.</td></tr>
+          <tr><td>Criterion-Referenced</td><td>Measures performance against a specific criterion/learning objective, not against other test-takers; a score is hoped to be valid every time regardless of who else is tested (e.g. Defense Language Institute–style criterion tests).</td></tr>
+          <tr><td>Proficiency</td><td>Measures global command of the language independent of any particular course; used for placement/certification (e.g. TOEFL, Michigan Test, MLA/Pimsleur tests, Cambridge examinations, Common Concept Foreign Language Proficiency).</td></tr>
+          <tr><td>Diagnostic</td><td>Identifies a student's specific strengths &amp; weaknesses (e.g. in listening) to guide further training; often more detailed/subcategorized than achievement or proficiency tests.</td></tr>
+          <tr><td>Aptitude</td><td>Predicts likelihood of success in learning a language <i>before</i> exposure to it — general capacity (e.g. Modern Language Aptitude Test, Carroll &amp; Sapon; Pimsleur Language Aptitude Battery; Defense Language Aptitude Battery).</td></tr>
+        </table></div>
+        <details class="acc"><summary>Norm-referenced vs. criterion-referenced — key contrasts</summary><div class="acc-body">
+          <ol>
+            <li>Norm-referenced tests spread students on a normal distribution; a criterion test hopes every student can, in principle, score the maximum by mastering the objectives.</li>
+            <li>Criterion tests report a student's mastery of clearly specified course objectives, giving concrete diagnostic and remediation information rather than a relative rank.</li>
+            <li>A norm-referenced pass mark is often set as high as 90% by convention; a criterion-referenced passing score (e.g. 80%) is set by specifying the amount/quality of knowledge or skill needed to succeed at the next stage.</li>
+          </ol>
+        </div></details>
+        <details class="acc"><summary>The Cloze test</summary><div class="acc-body">
+          <p>An integrative, discrete-point approach to testing overall reading &amp; general linguistic competence. Words are deleted at regular intervals (commonly every fifth to tenth word) from a passage of 200–500 words, with intact lead-in/closing sentences; deletion may be varied to avoid awkward cultural or highly specific items. Oller's variations include translating the deleted word to L1, giving the first letter as a cue, giving several word/function-word choices, or deleting specific parts of speech.</p>
+        </div></details>
+        <details class="acc"><summary>The Dictation test</summary><div class="acc-body">
+          <p>A well-established integrative &amp; achievement/proficiency measure of listening plus writing that reduces the effects of noise and redundancy in a message; students must perceive, hold, and reproduce a spoken message, drawing on grammar, vocabulary and discourse-level cues simultaneously.</p>
+        </div></details>
+        <details class="acc"><summary>Proficiency &amp; Diagnostic tests — examples</summary><div class="acc-body">
+          <p>Proficiency tests are generally more comprehensive than achievement tests, aiming at an overall estimate of ability across structure, vocabulary, phonology, and communicative competence. A well-known diagnostic example is the Diagnostic Test for Students of English as a Second Language, designed to give a cursory picture of specific weaknesses that a proficiency or achievement test may not reveal.</p>
+        </div></details>
+      </div>
+
+      <div class="card">
+        <h3>G. Build Better Rubrics <span class="chip">Docimology &amp; Evaluation</span></h3>
+        <p>A rubric is a structured scoring guide used to rate students' test responses precisely, consistently and transparently. It includes: <b>evaluative criteria</b>, <b>bands/levels on a scale</b>, and <b>standards for a cutoff score</b>. Rubrics are needed for both selected-response (MCQ, T/F) and constructed-response (essays, summaries) tasks, but matter most when students are producing something.</p>
+        <div class="key">Rubrics support learning as well as scoring: they help students critically engage with material, self-assess, understand feedback, and build autonomy.</div>
+        <h4>Holistic vs. Analytic</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Type</th><th>Description</th></tr>
+          <tr><td>Holistic</td><td>One overall score based on a general impression, combining several criteria under one heading/level.</td></tr>
+          <tr><td>Analytic</td><td>Separate scores for each named criterion (e.g. grammar, organization, content).</td></tr>
+          <tr><td>Extended Analytic Rubric (EAR)</td><td>Recommended hybrid: outlines each criterion on a scale <i>and</i> leaves space for constructive feedback — combines detailed diagnosis with clear structure.</td></tr>
+        </table></div>
+        <details class="acc"><summary>9 steps to design a rubric</summary><div class="acc-body">
+          <ol>
+            <li><b>Start with a clear purpose</b> — state precisely what is being assessed (e.g. "persuasive essay: use of evidence and structure," not just "Rubric for Essay").</li>
+            <li><b>Choose your rubric type</b> — holistic or analytic (research shows neither is inherently superior); consider an EAR for detailed feedback plus structure.</li>
+            <li><b>Identify 3–4 criteria</b> relevant to the test construct, each with a heading, brief description, and maximum score.</li>
+            <li><b>Describe performance levels</b> — write 5–6 levels per criterion using parallel, observable, non-abstract language (avoid "excellent"/"good work"); focus on performance quality, not just task components.</li>
+            <li><b>Assign point values</b> — a specific number per level (avoid ranges), plus a clearly explained passing score.</li>
+            <li><b>Get feedback and test it</b> — peer review, then pilot on a small scale.</li>
+            <li><b>Revise and improve</b> continually based on use and feedback; integrate finetuned rubrics into syllabi/LMS.</li>
+            <li><b>Keep it simple</b> — aim for 1–2 pages, 3–4 criteria, 5–6 performance levels.</li>
+            <li><b>Don't forget selected-response tasks</b> — even MCQ/fill-in tests benefit from a simple holistic rubric so students understand performance beyond a raw score.</li>
+          </ol>
+        </div></details>
+        <h4>Example holistic rubric — vocabulary test (selected response, intermediate ESL)</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Score (out of 10)</th><th>Level</th><th>Description</th></tr>
+          <tr><td>10–9</td><td>Proficient</td><td>Understands and uses vocabulary accurately in context; few or no errors.</td></tr>
+          <tr><td>8–7</td><td>Satisfactory</td><td>Recognizes most vocabulary and uses it correctly; minor mistakes.</td></tr>
+          <tr><td>6–5</td><td>Developing</td><td>Basic understanding of vocabulary; may struggle with usage or makes noticeable errors.</td></tr>
+          <tr><td>4 or less</td><td>Not Pass</td><td>Limited vocabulary knowledge; frequent errors; difficulty using words in context.</td></tr>
+        </table></div>
+        <div class="key">Rubrics aren't perfectly precise — the gap between a 5 and a 6 isn't guaranteed to equal the gap between a 4 and a 5. They rank performance rather than measure it to the "ounce," but well-designed rubrics still deliver accuracy, transparency, fairness, and stronger student engagement.</div>
+      </div>
+
+      <div class="card">
+        <h3>H. Designing a Language Test — A Practical Framework</h3>
+        <p><b>Measurement</b> is the assignment of a number representing a level of performance. <b>Assessment</b> is the overall judgment of a student's ability and standing — which may or may not involve testing. A <b>test</b> is a planned, systematic activity designed to elicit a specific ability, behaviour, or proficiency level. There is no single "best" test — only tests that are more or less useful for a given situation.</p>
+        <h4>The Test Design Cycle</h4>
+        <p>A cyclical process where each stage informs the next:</p>
+        <ol>
+          <li><b>Test Justification (Why)</b> — the need for the test and its clear objective.</li>
+          <li><b>Test Type (What)</b> — the argument for choosing one test form over another.</li>
+          <li><b>Test Use (How)</b> — how the outcome supports interpretation and achieves the objective.</li>
+        </ol>
+        <div class="key">Quality improves incrementally each time the cycle is refined after implementation — using the right form for the right function.</div>
+        <h4>Test Design Framework — five dimensions</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Dimension</th><th>Description</th></tr>
+          <tr><td>Objectives</td><td>Purpose of the test (proficiency, needs analysis, placement, or achievement).</td></tr>
+          <tr><td>Specifications</td><td>Most appropriate form given the objectives (item types, sections, length, difficulty).</td></tr>
+          <tr><td>Frame of Reference</td><td>Norm-referenced, criterion-referenced, or an alternative method.</td></tr>
+          <tr><td>Audience &amp; Context</td><td>The intended test-takers (academic level, age, language background).</td></tr>
+          <tr><td>Medium &amp; Level</td><td>Delivery method (paper, online, hybrid) and targeted proficiency level.</td></tr>
+        </table></div>
+        <details class="acc"><summary>Worked example</summary><div class="acc-body">
+          <div class="table-scroll"><table>
+            <tr><th>Objectives</th><th>Specifications</th><th>Frame of Reference</th><th>Audience &amp; Context</th><th>Medium &amp; Level</th></tr>
+            <tr>
+              <td>Proficiency test measuring general writing skills, Week 7</td>
+              <td>450-word, 3-paragraph narrative essay with outline on a family camping trip; 2 hours</td>
+              <td>Criterion-referenced (against a specific standard, not peers)</td>
+              <td>Grade 8 students, public school, rural EFL context</td>
+              <td>On-site, pen &amp; paper; dictionaries allowed; intermediate level</td>
+            </tr>
+          </table></div>
+        </div></details>
+        <h4>Ensuring trustworthiness: reliability, validity, authenticity</h4>
+        <ul>
+          <li><b>Reliability</b> — consistent, dependable results across administrations. Supported by a clear scoring rubric, unambiguous instructions/items, a good range of items, and piloting/revision.</li>
+          <li><b>Validity</b> — the appropriateness of inferences and decisions based on scores; a test not reliable is unlikely to be valid. Key question: "for what purposes is it valid," not just "is it valid."
+            <ul>
+              <li><i>Criterion-related</i> — how well scores correlate with other measures.</li>
+              <li><i>Content-related</i> — how accurately it samples the target skill area.</li>
+            </ul>
+          </li>
+          <li><b>Authenticity</b> — how closely a task mirrors real-world use of language; e.g. writing an email or a movie review has higher validity than a multiple-choice grammar/vocabulary quiz for assessing writing.</li>
+        </ul>
+        <div class="key">Action plan: (1) run all existing tests through the Test Design Framework; (2) seek peer review from 2–3 colleagues to strengthen testing practice.</div>
+      </div>
     </section>
 
-    <!-- MODULE 3: MGMT 2 & MATERIAL DEV -->
-    <section class="module cat-lang" id="mgmt" dir="ltr" lang="en">
+    <!-- MODULE 3: PLANNING, LEARNING -->
+    <section class="module cat-lang" id="planning" dir="ltr" lang="en">
       <div class="module-head">
-        <div class="module-badge">🧰</div>
+        <div class="module-badge">🎯</div>
         <div>
           <span class="pill">Language &amp; Pedagogy</span>
-          <h2>MGMT 2 &amp; Material Development</h2>
-          <div class="meta">Materials · Grammar · Reading · Writing · Vocabulary · Board · Roles</div>
+          <h2>Planning, Learning</h2>
+          <div class="meta">Objectives · SMART(A) · Sequence of Activities</div>
         </div>
       </div>
 
       <div class="card">
-        <h3>Core Definitions</h3>
+        <p>Planning learning involves defining clear, achievable objectives, designing engaging activities to meet those goals, and creating assessment methods to measure success. This process helps educators and learners organize time effectively, anticipate needs, and reduce guesswork.</p>
+      </div>
+
+      <div class="card">
+        <h3>1 · Setting Your Objective</h3>
+        <p>Your lesson plan objectives should be <b>SMART(A)</b>.</p>
+        <div class="table-scroll"><table>
+          <tr><th>Letter</th><th>Criterion</th><th>Description</th></tr>
+          <tr><td><b>S</b></td><td>Specific</td><td>Clearly define what students will learn or do, avoiding vague language.</td></tr>
+          <tr><td><b>M</b></td><td>Measurable</td><td>Include criteria (e.g., quizzes, presentations) to assess if students met the goal.</td></tr>
+          <tr><td><b>A</b></td><td>Achievable</td><td>Set realistic, attainable goals based on student knowledge.</td></tr>
+          <tr><td><b>R</b></td><td>Realistic or Reasonable</td><td>Align objectives with broader curriculum standards.</td></tr>
+          <tr><td><b>T</b></td><td>Time Bound</td><td>Set a clear, realistic timeframe for completion, such as by the end of the lesson.</td></tr>
+          <tr><td><b>A</b></td><td>Adjustable</td><td>Flexible.</td></tr>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <h3>2 · Design the Sequence of Activities</h3>
+        <p>Organize the session into coherent, logically ordered stages. A typical learning sequence follows a few core phases:</p>
         <ul>
-          <li><b>Material Development</b> — changing/adjusting parts of a course book so it fits specific learners.</li>
-          <li><b>Classroom Management</b> — strategies fostering safe, respectful environments; minimizes disruption.</li>
-          <li><b>Grammar</b> — how a language combines words/word-parts into meaningful units; the rule-set.</li>
-          <li><b>Vocabulary</b> — all the words of a language, single items and phrases.</li>
+          <li><b>Activating Prior Knowledge</b> — connect new concepts to what the learners already know.</li>
+          <li><b>Direct Instruction</b> — introduce new skills or knowledge clearly.</li>
+          <li><b>Guided &amp; Independent Practice</b> — provide activities where learners can apply their knowledge in new situations.</li>
+          <li><b>Closure</b> — review key takeaways and preview upcoming material.</li>
         </ul>
-      </div>
-
-      <div class="card">
-        <h3>Material Development — the 5 Questions</h3>
-        <div class="table-scroll"><table>
-          <tr><th>What?</th><th>When?</th><th>How?</th><th>Why?</th></tr>
-          <tr>
-            <td>Nature of the material: info-gap, role-play, sequence of tasks, images, text, examples, focus, questions</td>
-            <td>Syllabus planning / in-lesson / post-lesson; time limits, mixed levels, course doesn't fit, demand-high</td>
-            <td>Reduce, alter, add to, personalise, improvise, create other materials, lift off the page (game, mingle, role-play), grade language</td>
-            <td>Fun, communication, simplify, translate L1–L2 to save time, meet needs/interest/context, modernise, change dynamic, aid comprehension</td>
-          </tr>
-        </table></div>
-        <p><i>Who?</i> — most often "the students."</p>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <h3>Teaching Grammar</h3>
-          <p><b>Context</b> must be appropriate, meaningful, simple; use dialogue/text/video/audio/song; treat a text like a reading text; give a guiding question.</p>
-          <p><b>Process:</b> Form (master rules) → Meaning (apply rules) → Use (express rules)</p>
-          <div class="key">SWBAT formula: By the end of the LESSON, SWBAT use … to … in …<br><i>e.g. use the present simple to ask/answer about routine in a roleplay.</i></div>
-        </div>
-        <div class="card">
-          <h3>Teaching Reading</h3>
-          <p>Reading is a <b>receptive</b> skill. Framework: <b>PDP</b></p>
-          <ul>
-            <li><b>Prepare</b> — pre-teach vocabulary, activate schemata, guesses.</li>
-            <li><b>Comprehension (During)</b> — interact with the text, recognise/infer.</li>
-            <li><b>Personalisation (Post)</b> — relate to personal lives.</li>
-          </ul>
-          <div class="key">SWBAT: … demonstrate understanding of the text … by … and then …</div>
-          <p>Interactive approach blends bottom-up (decoding) with top-down (prior knowledge/context): predicting, questioning, summarizing, peer discussion.</p>
-        </div>
-      </div>
-
-      <div class="grid2">
-        <div class="card">
-          <h3>Teaching Writing</h3>
-          <p>The most conscious skill — no room for improvisation, needs full focus. Teacher may target fluency or accuracy.</p>
-          <ul>
-            <li><b>Product writing</b> — final output, grammar, structure, mimicking models.</li>
-            <li><b>Process writing</b> — the journey: brainstorm → draft → peer feedback → revise (<b>PDRE</b>: Prepare, Draft, Revise, Edit).</li>
-          </ul>
-          <p>Provide a correction checklist; encourage pair/self-correction for autonomy.</p>
-          <div class="key">SWBAT: … write … using …</div>
-        </div>
-        <div class="card">
-          <h3>Teaching Vocabulary</h3>
-          <div class="table-scroll"><table>
-            <tr><th>Stage</th><th>Focus</th><th>Techniques</th></tr>
-            <tr><td>Presentation</td><td>Introduce form/meaning; unknown → passive vocabulary</td><td>Realia, visuals, flashcards, mime, synonyms/antonyms, word maps, storytelling</td></tr>
-            <tr><td>Practice</td><td>Check understanding; controlled → less controlled</td><td>Gap-fill, MCQ, matching, odd-one-out, word forms, crosswords</td></tr>
-            <tr><td>Production</td><td>Consolidate; passive → active vocabulary</td><td>Word association, info-gaps, riddles, role-plays, discussions, story writing</td></tr>
-          </table></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Board Management</h3>
-        <div class="table-scroll"><table>
-          <tr><th>Section</th><th>Purpose</th><th>Share</th></tr>
-          <tr><td>Reference (permanent)</td><td>Day/date, key vocabulary, model sentences, persistent errors, grammar rules</td><td>~20%</td></tr>
-          <tr><td>Main section (development)</td><td>Pictures/flashcards, dialogues line-by-line, grammar outlines, activity prompts, game scores, question forms</td><td>~55% (largest)</td></tr>
-          <tr><td>Notes &amp; impromptu</td><td>Daily notices, announcements, "ask me later," alternative explanations</td><td>~25%</td></tr>
-        </table></div>
-      </div>
-
-      <div class="card">
-        <h3>Teacher Roles</h3>
-        <div class="chiplist">
-          <span class="chip">Planner</span><span class="chip">Informer</span><span class="chip">Manager</span><span class="chip">Motivator</span>
-          <span class="chip">Guide</span><span class="chip">Involver</span><span class="chip">Diagnostician</span><span class="chip">Language Resource</span>
-          <span class="chip">Organizer</span><span class="chip">Facilitator</span><span class="chip">Counselor</span><span class="chip">Monitor</span>
-          <span class="chip">Assessor</span><span class="chip">Provider</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Classroom Problems &amp; Solutions</h3>
-        <details class="acc"><summary>1 · Certain learners dominate others</summary><div class="acc-body"><p>Assign specific roles; enforce turn-taking.</p></div></details>
-        <details class="acc"><summary>2 · Learners resist peer correction / don't learn from mistakes</summary><div class="acc-body"><p>Monitor work closely; raise awareness of mistakes as part of learning.</p></div></details>
-        <details class="acc"><summary>3 · Learners are shy / lack confidence speaking</summary><div class="acc-body"><p>Build self-confidence step by step: pairs → groups → whole class.</p></div></details>
-        <details class="acc"><summary>4 · Mixed abilities</summary><div class="acc-body"><p>Group by level; use differentiated pedagogy.</p></div></details>
-        <details class="acc"><summary>5 · Overuse of L1</summary><div class="acc-body"><p>Set a classroom rule limiting L1; give enough input/support in the target language.</p></div></details>
-        <p class="quote">"The way teachers teach is often a personal interpretation of what they think works best in a given situation."</p>
       </div>
     </section>
 
@@ -1759,6 +1859,53 @@ document.getElementById('burgerBtn').addEventListener('click', ()=>{
   sidebar.classList.add('open'); overlay.classList.add('show');
 });
 overlay.addEventListener('click', ()=>{ sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+
+/* ===== radio player ===== */
+const PLAYLIST = [
+  'A Fake Love Strory Filled with Hate (MP3).mp3',
+  'Abyss.mp3',
+  'Edda.mp3',
+  'Fern.mp3',
+  'Sunflowers.mp3',
+  'Surfside.mp3',
+  'WisSu - Tender Love (MP3).mp3'
+];
+const bgAudio = document.getElementById('bgAudio');
+const radioToggle = document.getElementById('radioToggle');
+const radioIcon = document.getElementById('radioIcon');
+const nowPlaying = document.getElementById('nowPlaying');
+let trackIndex = Math.floor(Math.random() * PLAYLIST.length);
+
+function trackTitle(filename){
+  return filename.replace(/\.mp3$/i, '').replace(/\s*\(MP3\)\s*/i, '').trim();
+}
+function loadTrack(i){
+  bgAudio.src = encodeURIComponent(PLAYLIST[i]).replace(/%2F/g, '/');
+  nowPlaying.textContent = '♪ ' + trackTitle(PLAYLIST[i]);
+}
+loadTrack(trackIndex);
+
+bgAudio.addEventListener('ended', ()=>{
+  trackIndex = (trackIndex + 1) % PLAYLIST.length;
+  loadTrack(trackIndex);
+  bgAudio.play().catch(()=>{});
+});
+bgAudio.addEventListener('play', ()=>{
+  radioIcon.textContent = '⏸️';
+  radioToggle.title = 'Pause radio';
+  nowPlaying.classList.remove('hidden');
+});
+bgAudio.addEventListener('pause', ()=>{
+  radioIcon.textContent = '▶️';
+  radioToggle.title = 'Play radio';
+});
+radioToggle.addEventListener('click', ()=>{
+  if (bgAudio.paused){
+    bgAudio.play().catch(()=>{});
+  } else {
+    bgAudio.pause();
+  }
+});
 document.querySelectorAll('.toc-link').forEach(l=>l.addEventListener('click', (e)=>{
   if(e.target.classList.contains('toc-check')) return;
   e.preventDefault();
@@ -1786,7 +1933,7 @@ document.querySelectorAll('.toc-link').forEach(l=>l.addEventListener('click', (e
 }));
 
 /* ===== progress tracking ===== */
-const MODULES = ['cm','assess','mgmt','bte','ict','ethics','schoollife','responsibilities','legal'];
+const MODULES = ['cm','assess','planning','bte','ict','ethics','schoollife','responsibilities','legal'];
 const ringFill = document.getElementById('ringFill');
 const R = 25, C = 2*Math.PI*R;
 ringFill.style.strokeDasharray = C;
