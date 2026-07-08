@@ -127,6 +127,39 @@ nav.toc{display:flex; flex-direction:column; gap:20px;}
 
 .sidebar-foot{margin-top:auto; display:flex; gap:8px; flex-wrap:wrap;}
 .now-playing{font-size:11px; color:var(--text-faint); text-align:center; padding:0 4px; line-height:1.3;}
+
+.fan-icon-wrap{display:inline-flex; line-height:0;}
+.fan-icon-wrap svg{display:block; transition:color .2s;}
+.fan-icon-wrap.spinning svg{animation:fan-spin .55s linear infinite;}
+@keyframes fan-spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+#fanToggle.on{color:#38bdf8; border-color:#38bdf8;}
+
+.breeze-overlay{position:fixed; top:0; left:0; right:0; height:46px; pointer-events:none; overflow:hidden; z-index:9999; opacity:0; transition:opacity .5s ease;}
+.breeze-overlay.active{opacity:1;}
+.breeze-line{position:absolute; left:-30%; width:30%; height:2px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, rgba(56,189,248,.75), transparent);
+  animation:breeze-move 2.6s linear infinite;}
+.breeze-line.l1{top:10px; animation-duration:2.1s;}
+.breeze-line.l2{top:22px; animation-duration:2.7s; animation-delay:.4s;}
+.breeze-line.l3{top:34px; animation-duration:2.3s; animation-delay:.8s;}
+@keyframes breeze-move{from{transform:translateX(0);} to{transform:translateX(430%);}}
+
+.big-fan-toggle{
+  position:fixed; top:16px; right:22px; z-index:20;
+  width:84px; height:84px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--surface2); border:1px solid var(--line);
+  color:var(--text-dim); cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.14);
+  transition:border-color .2s, box-shadow .2s, color .2s;
+}
+.big-fan-toggle:hover{border-color:var(--text-faint);}
+.big-fan-toggle.on{color:#38bdf8; border-color:#38bdf8; box-shadow:0 6px 24px rgba(56,189,248,.4);}
+.big-fan-toggle .fan-icon-wrap{width:56%; height:56%;}
+.big-fan-toggle svg{display:block; width:100%; height:100%;}
+@media (max-width:960px){
+  .big-fan-toggle{width:52px; height:52px; top:9px; right:12px; box-shadow:0 3px 10px rgba(0,0,0,.16);}
+}
 .icon-btn{
   flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
   background:var(--surface2); border:1px solid var(--line); color:var(--text-dim);
@@ -306,7 +339,7 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
             <input type="checkbox" class="toc-check" data-mod="cm">
           </a>
           <a href="#assess" class="toc-link cat-lang" data-target="assess" data-kw="assessment practice analysis formative summative validity reliability washback authenticity writing scoring rubric holistic analytic objective testing multiple-choice stem distractors norm-referenced criterion-referenced cloze dictation proficiency diagnostic aptitude test design framework docimology">
-            <span class="tab"></span><span class="ico">📝</span><span class="lbl">Assessment<small>Types · Principles · Testing · Writing</small></span>
+            <span class="tab"></span><span class="ico">📝</span><span class="lbl">Assessment &amp; Practice<small>Types · Principles · Testing · Writing</small></span>
             <input type="checkbox" class="toc-check" data-mod="assess">
           </a>
           <a href="#planning" class="toc-link cat-lang" data-target="planning" data-kw="planning learning objectives smart smarta specific measurable achievable realistic reasonable relevant time bound adjustable sequence of activities activating prior knowledge direct instruction guided independent practice closure ppp ohe ecrif siop esa lesson planning frameworks presentation practice production observe hypothesize experiment encounter clarify remember internalize sheltered instruction engage study activate jeremy harmer michael lewis">
@@ -338,7 +371,6 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
             <input type="checkbox" class="toc-check" data-mod="ethics">
           </a>
           <a href="#schoollife" class="toc-link cat-ethics" data-target="schoollife" data-kw="الحياة المدرسية القيادة الحكامة المجالس الأندية التربوية المهارات الحياتية الأنشطة الفنية الثقافية الإبداعية المسرح المدرسي التثقيف بالنظير تعليم الأقران school life governance councils clubs artistic cultural creative activities peer education life skills">
-            <span class="tab"></span><span class="ico">🏫</span><span class="lbl">الحياة المدرسية<small>Leadership · Councils · Clubs</small></span>
             <input type="checkbox" class="toc-check" data-mod="schoollife">
           </a>
           <a href="#responsibilities" class="toc-link cat-ethics" data-target="responsibilities" data-kw="مسؤولية موظف حقوق واجبات ترسيم ترقية مسار مهني responsibility employee rights duties career">
@@ -358,10 +390,40 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
       <button class="icon-btn" id="radioToggle" title="Play radio">
         <span id="radioIcon">▶️</span> <span id="radioLabel">Radio</span>
       </button>
+      <button class="icon-btn" id="fanToggle" title="Turn on the fan">
+        <span id="fanIconWrap" class="fan-icon-wrap">
+          <svg id="fanSvg" viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+            <path d="M12 11c0-3.5 1.5-6.5 3.5-7.5 1.5-0.8 2.8 0.4 2.3 2C17 7.5 14.8 9.6 12 11z" fill="currentColor"/>
+            <path d="M13 12c3.5 0 6.5 1.5 7.5 3.5 0.8 1.5-0.4 2.8-2 2.3C16.5 17 14.4 14.8 13 12z" fill="currentColor"/>
+            <path d="M12 13c0 3.5-1.5 6.5-3.5 7.5-1.5 0.8-2.8-0.4-2.3-2C7 16.5 9.2 14.4 12 13z" fill="currentColor"/>
+            <path d="M11 12c-3.5 0-6.5-1.5-7.5-3.5C2.7 7 3.9 5.7 5.5 6.2 7.5 7 9.6 9.2 11 12z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span id="fanLabel">Fan</span>
+      </button>
     </div>
     <div id="nowPlaying" class="now-playing hidden"></div>
     <audio id="bgAudio" preload="none"></audio>
   </aside>
+
+  <div id="breezeOverlay" class="breeze-overlay" aria-hidden="true">
+    <span class="breeze-line l1"></span>
+    <span class="breeze-line l2"></span>
+    <span class="breeze-line l3"></span>
+  </div>
+
+  <button id="bigFanToggle" class="big-fan-toggle" title="Turn on the fan" aria-label="Toggle fan">
+    <span id="bigFanIconWrap" class="fan-icon-wrap">
+      <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        <path d="M12 11c0-3.5 1.5-6.5 3.5-7.5 1.5-0.8 2.8 0.4 2.3 2C17 7.5 14.8 9.6 12 11z" fill="currentColor"/>
+        <path d="M13 12c3.5 0 6.5 1.5 7.5 3.5 0.8 1.5-0.4 2.8-2 2.3C16.5 17 14.4 14.8 13 12z" fill="currentColor"/>
+        <path d="M12 13c0 3.5-1.5 6.5-3.5 7.5-1.5 0.8-2.8-0.4-2.3-2C7 16.5 9.2 14.4 12 13z" fill="currentColor"/>
+        <path d="M11 12c-3.5 0-6.5-1.5-7.5-3.5C2.7 7 3.9 5.7 5.5 6.2 7.5 7 9.6 9.2 11 12z" fill="currentColor"/>
+      </svg>
+    </span>
+  </button>
 
   <!-- ============ MAIN ============ -->
   <main id="mainContent">
@@ -511,13 +573,11 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
       </div>
     </section>
 
-    <!-- MODULE 2: ASSESSMENT   -->
     <section class="module cat-lang" id="assess" dir="ltr" lang="en">
       <div class="module-head">
         <div class="module-badge">📝</div>
         <div>
           <span class="pill">Language &amp; Pedagogy</span>
-          <h2>Assessment</h2>
           <div class="meta">Knowledge types · Assessment types · Principles · Test design · Writing assessment</div>
         </div>
       </div>
@@ -960,7 +1020,6 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
       </div>
 
       <div class="card">
-        <h3>Basic Training Enhancement — Formal &amp; Informal Emails</h3>
         <div class="grid2">
           <div>
             <h4>Formal features</h4>
@@ -1135,7 +1194,6 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
       </div>
 
       <div class="card">
-        <h3>Communication</h3>
         <h4>Types</h4>
         <ul>
           <li><b>Intrapersonal</b> — internal dialogue/thought processes within an individual.</li>
@@ -1609,7 +1667,6 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
         <div class="module-badge">🏫</div>
         <div>
           <span class="pill">الأخلاقيات والقانون</span>
-          <h2>الحياة المدرسية</h2>
           <div class="meta">القيادة · الحكامة · المجالس · الأنشطة · الأندية التربوية · المهارات الحياتية</div>
         </div>
       </div>
@@ -2188,6 +2245,29 @@ radioToggle.addEventListener('click', ()=>{
     bgAudio.pause();
   }
 });
+
+/* ===== fan / AC toggle ===== */
+const fanToggle = document.getElementById('fanToggle');
+const fanIconWrap = document.getElementById('fanIconWrap');
+const fanLabel = document.getElementById('fanLabel');
+const breezeOverlay = document.getElementById('breezeOverlay');
+const bigFanToggle = document.getElementById('bigFanToggle');
+const bigFanIconWrap = document.getElementById('bigFanIconWrap');
+let fanOn = false;
+function setFan(on){
+  fanOn = on;
+  fanIconWrap.classList.toggle('spinning', fanOn);
+  bigFanIconWrap.classList.toggle('spinning', fanOn);
+  fanToggle.classList.toggle('on', fanOn);
+  bigFanToggle.classList.toggle('on', fanOn);
+  breezeOverlay.classList.toggle('active', fanOn);
+  const title = fanOn ? 'Turn off the fan' : 'Turn on the fan';
+  fanToggle.title = title;
+  bigFanToggle.title = title;
+  fanLabel.textContent = fanOn ? 'Fan: On' : 'Fan';
+}
+fanToggle.addEventListener('click', ()=> setFan(!fanOn));
+bigFanToggle.addEventListener('click', ()=> setFan(!fanOn));
 document.querySelectorAll('.toc-link').forEach(l=>l.addEventListener('click', (e)=>{
   if(e.target.classList.contains('toc-check')) return;
   e.preventDefault();
