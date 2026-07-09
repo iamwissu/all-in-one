@@ -160,6 +160,23 @@ nav.toc{display:flex; flex-direction:column; gap:20px;}
 @media (max-width:960px){
   .big-fan-toggle{width:52px; height:52px; top:9px; right:12px; box-shadow:0 3px 10px rgba(0,0,0,.16);}
 }
+
+.volume-row{display:flex; align-items:center; gap:8px; margin-top:2px; padding:2px 4px 0;}
+.volume-row .vol-icon{font-size:13px; flex:none; color:var(--text-faint);}
+.volume-row input[type="range"]{flex:1; accent-color:#38bdf8; height:4px; cursor:pointer; background:transparent;}
+
+.fan-quote{
+  position:fixed; top:108px; right:22px; z-index:19; max-width:230px;
+  background:var(--surface2); border:1px solid var(--line); border-radius:14px;
+  padding:10px 14px; font-size:12.5px; line-height:1.45; color:var(--text-dim);
+  box-shadow:0 8px 20px rgba(0,0,0,.16);
+  opacity:0; transform:translateY(-6px); pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease;
+}
+.fan-quote.show{opacity:1; transform:translateY(0);}
+@media (max-width:960px){
+  .fan-quote{top:66px; right:12px; max-width:190px; font-size:12px;}
+}
 .icon-btn{
   flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
   background:var(--surface2); border:1px solid var(--line); color:var(--text-dim);
@@ -404,6 +421,10 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
         <span id="fanLabel">Fan</span>
       </button>
     </div>
+    <div class="volume-row">
+      <span class="vol-icon" id="volIcon">🔉</span>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" aria-label="Radio volume">
+    </div>
     <div id="nowPlaying" class="now-playing hidden"></div>
     <audio id="bgAudio" preload="none"></audio>
   </aside>
@@ -413,6 +434,8 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
     <span class="breeze-line l2"></span>
     <span class="breeze-line l3"></span>
   </div>
+
+  <div id="fanQuote" class="fan-quote" role="status" aria-live="polite"></div>
 
   <button id="bigFanToggle" class="big-fan-toggle" title="Turn on the fan" aria-label="Toggle fan">
     <span id="bigFanIconWrap" class="fan-icon-wrap">
@@ -903,6 +926,180 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
         </ul>
         <div class="key">Action plan: (1) run all existing tests through the Test Design Framework; (2) seek peer review from 2–3 colleagues to strengthen testing practice.</div>
       </div>
+
+      <div class="card">
+        <h3>I. Assessment, Test &amp; Evaluation <span class="chip">Soukaina Benarrech</span></h3>
+        <div class="table-scroll"><table>
+          <tr><th>Concept</th><th>Brief meaning</th><th>Example</th></tr>
+          <tr><td>Test</td><td>A specific instrument used to collect evidence at a given time.</td><td>A grammar quiz, a reading test, an oral presentation task.</td></tr>
+          <tr><td>Assessment</td><td>A broader process of gathering evidence of learning through tests, observation, tasks and feedback.</td><td>Using a quiz, observation checklist and writing sample to judge progress.</td></tr>
+          <tr><td>Evaluation</td><td>A broader judgement about quality, value or effectiveness.</td><td>Judging whether a lesson, program or intervention was effective.</td></tr>
+        </table></div>
+        <div class="key"><b>Assessment begins in planning:</b> a good teacher plans how learning will be assessed before teaching the lesson — objectives, activities and assessment must work together.</div>
+        <h4>The Assessment Cycle</h4>
+        <p>Learning objectives → teaching activities → assessment task → evidence → feedback → remediation → reassessment. This cycle shows why assessment is part of planning, management and didactics — not only a separate module.</p>
+      </div>
+
+      <div class="card">
+        <h3>J. Constructive Alignment — The Golden Rule <span class="chip">Soukaina Benarrech</span></h3>
+        <p>Constructive alignment means that objectives, classroom activities and assessment tasks measure the <b>same learning outcomes</b>. In CRMEF assessment questions, this is the most important principle: do not assess what the prompt did not mention unless there is a clear pedagogical reason.</p>
+        <div class="table-scroll"><table>
+          <tr><th>Objective</th><th>Weak assessment</th><th>Strong assessment</th></tr>
+          <tr><td>Students express opinions orally.</td><td>MCQ grammar questions only.</td><td>Pair discussion assessed with a speaking checklist.</td></tr>
+          <tr><td>Students identify the main idea of a text.</td><td>Writing an opinion paragraph.</td><td>Skimming task + main idea question.</td></tr>
+          <tr><td>Students write an email invitation.</td><td>True/False reading questions.</td><td>Email writing task with a rubric.</td></tr>
+          <tr><td>Students use modals for advice.</td><td>Translation of modal verbs.</td><td>Complete advice sentences + short advice message.</td></tr>
+        </table></div>
+        <div class="key"><b>Examiner insight:</b> if the exam says the teacher taught modal verbs, relative clauses and expressing opinions, assess those elements. Don't automatically add a reading comprehension section just because Moroccan tests often begin with a text.</div>
+      </div>
+
+      <div class="card">
+        <h3>K. Designing Any Quiz or Test <span class="chip">Soukaina Benarrech</span></h3>
+        <p>Before writing questions, take two or three minutes to prepare mentally or on rough paper — it saves time and makes the final assessment coherent.</p>
+        <div class="table-scroll"><table>
+          <tr><th>Step</th><th>What to do</th><th>Example</th></tr>
+          <tr><td>1. Identify objective</td><td>Read the prompt and list the lessons taught.</td><td>Modal verbs, relative clauses, expressing opinions.</td></tr>
+          <tr><td>2. Decide scope</td><td>Decide what must be assessed and what should be excluded.</td><td>No reading if reading was not taught or requested.</td></tr>
+          <tr><td>3. Draft blueprint</td><td>Divide marks by components and importance.</td><td>Grammar 8, functions 4, writing 8, or another logical distribution.</td></tr>
+          <tr><td>4. Choose tasks</td><td>Select item types that match the objective.</td><td>Relative clauses: sentence combination, not random MCQs only.</td></tr>
+          <tr><td>5. Write instructions</td><td>Make instructions clear and short.</td><td>Combine the sentences using who, which or that.</td></tr>
+          <tr><td>6. Prepare scoring</td><td>Add marks and rubrics where needed.</td><td>Writing rubric: task, organization, language, mechanics.</td></tr>
+          <tr><td>7. Check quality</td><td>Review validity, practicality and fairness.</td><td>Can students finish in time? Is the task clear?</td></tr>
+        </table></div>
+        <h4>Blueprints &amp; mark distribution</h4>
+        <p>A blueprint (test specification table) shows what is assessed and how many marks each part receives. You may not draw a full table in the exam, but think through it before designing the quiz.</p>
+        <div class="table-scroll"><table>
+          <tr><th>Assessment type</th><th>Possible distribution</th><th>When suitable</th></tr>
+          <tr><td>Short 10-mark quiz</td><td>Grammar 4 + Vocabulary 2 + Functions 2 + Writing 2</td><td>Quick classroom check.</td></tr>
+          <tr><td>20-mark quiz</td><td>Language 8 + Functions 4 + Writing 8</td><td>Assessing grammar/functions and a productive task.</td></tr>
+          <tr><td>Integrated skills test</td><td>Reading 8 + Vocabulary 4 + Grammar 4 + Writing 4</td><td>When reading is part of the objectives.</td></tr>
+          <tr><td>Speaking assessment</td><td>Task achievement 3 + Fluency 3 + Accuracy 2 + Interaction 2</td><td>Assessing oral production.</td></tr>
+          <tr><td>Writing assessment</td><td>Task 3 + Organization 3 + Language 3 + Mechanics 1</td><td>Short paragraph or email out of 10.</td></tr>
+        </table></div>
+        <div class="key">Give more marks to tasks that are more important, more complex, more time-consuming, and closer to the main objective. Productive tasks usually deserve more marks because they integrate grammar, vocabulary, organization and communication.</div>
+      </div>
+
+      <div class="card">
+        <h3>L. Designing Tasks by Language Area <span class="chip">Soukaina Benarrech</span></h3>
+        <div class="table-scroll"><table>
+          <tr><th>Area</th><th>Strong task types</th><th>Avoid / be careful with</th><th>Focus</th></tr>
+          <tr><td>Grammar</td><td>Gap-fill in context, transformation, error correction, sentence completion, guided production.</td><td>Only isolated MCQs; ambiguous sentences with more than one possible answer.</td><td>Accuracy and meaningful use.</td></tr>
+          <tr><td>Vocabulary</td><td>Matching, categorizing, context completion, word formation, sentence production.</td><td>Asking for translations only; decontextualized lists.</td><td>Meaning, form and use.</td></tr>
+          <tr><td>Functions</td><td>Dialogue completion, appropriate response, short exchange, role-card response.</td><td>Asking learners to define the function only.</td><td>Appropriate language use.</td></tr>
+          <tr><td>Reading</td><td>Skimming, scanning, T/F with justification, inference, open questions, sequencing.</td><td>Questions unrelated to the text; too many memory questions.</td><td>Comprehension strategies and meaning.</td></tr>
+          <tr><td>Listening</td><td>Table completion, note-taking, choosing correct information, ordering events.</td><td>Overloading memory; playing audio only once for low levels.</td><td>Listening for gist/detail.</td></tr>
+          <tr><td>Speaking</td><td>Role play, interview, discussion, picture description, problem-solving.</td><td>Assessing speaking only through written grammar.</td><td>Fluency, interaction, accuracy and task achievement.</td></tr>
+          <tr><td>Writing</td><td>Paragraph, email, story, report, article, opinion essay with rubric.</td><td>Vague prompts such as "write about environment."</td><td>Organization, relevance, language and mechanics.</td></tr>
+        </table></div>
+        <details class="acc"><summary>Worked examples of strong task design</summary><div class="acc-body">
+          <p><b>Grammar — Relative Clauses:</b> weak = choose who/which from a list only; stronger = combine two sentences, since it requires learners to <i>produce</i> a relative clause.</p>
+          <div class="table-scroll"><table>
+            <tr><th>Instruction</th><th>Items</th><th>Marks</th></tr>
+            <tr><td>Combine the sentences using a suitable relative pronoun.</td><td>1. The teacher is very supportive. She teaches English.<br>2. We visited a school. It uses solar energy.</td><td>2 marks: 1 each</td></tr>
+          </table></div>
+          <p><b>Functions — Agreement and Opinion:</b> best assessed through short communicative exchanges, not definitions.</p>
+          <div class="table-scroll"><table>
+            <tr><th>Instruction</th><th>Example</th><th>Marks</th></tr>
+            <tr><td>Complete the dialogue with appropriate expressions.</td><td>A: In my opinion, schools should organize environmental campaigns.<br>B: ________. They help students become responsible citizens.</td><td>2 marks</td></tr>
+            <tr><td>Write an appropriate response.</td><td>A: I think homework helps students become autonomous.<br>B: ________.</td><td>2 marks</td></tr>
+          </table></div>
+        </div></details>
+      </div>
+
+      <div class="card">
+        <h3>M. Rubric Templates — Writing &amp; Speaking <span class="chip">Soukaina Benarrech</span></h3>
+        <p>Rubrics can be analytical (separate marks per criterion — best for writing, speaking, projects and CRMEF answers) or holistic (one overall score — quicker but less precise).</p>
+        <h4>General writing rubric template</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Criterion</th><th>What it measures</th><th>Can be weighted as</th></tr>
+          <tr><td>Task achievement</td><td>Whether the student answers the prompt and includes required content.</td><td>20–30%</td></tr>
+          <tr><td>Organization and coherence</td><td>Logical order, paragraphing, linking words and flow.</td><td>20–30%</td></tr>
+          <tr><td>Grammar accuracy</td><td>Correct sentence structure and target grammar use.</td><td>20–30%</td></tr>
+          <tr><td>Vocabulary range and appropriacy</td><td>Relevant words, collocations and variety.</td><td>10–20%</td></tr>
+          <tr><td>Mechanics</td><td>Spelling, punctuation and capitalization.</td><td>5–15%</td></tr>
+        </table></div>
+        <div class="key">Don't memorize one fixed rubric such as 2+2+2+2. Choose criteria and marks according to the task — an email may prioritize format and appropriacy; an opinion paragraph may prioritize argument and coherence.</div>
+        <h4>General speaking rubric template</h4>
+        <div class="table-scroll"><table>
+          <tr><th>Criterion</th><th>What it measures</th><th>When important</th></tr>
+          <tr><td>Task achievement</td><td>Completing the communicative purpose.</td><td>All speaking tasks.</td></tr>
+          <tr><td>Fluency</td><td>Ability to speak with reasonable flow.</td><td>Discussions, presentations.</td></tr>
+          <tr><td>Accuracy</td><td>Grammar and sentence control.</td><td>Grammar-focused speaking tasks.</td></tr>
+          <tr><td>Vocabulary</td><td>Range and appropriacy of words.</td><td>Topic-based speaking.</td></tr>
+          <tr><td>Pronunciation</td><td>Clarity and intelligibility.</td><td>Oral presentations.</td></tr>
+          <tr><td>Interaction</td><td>Turn-taking, responding, asking questions.</td><td>Pair/group tasks.</td></tr>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <h3>N. Scoring Objective &amp; Receptive-Skill Tasks <span class="chip">Soukaina Benarrech</span></h3>
+        <div class="table-scroll"><table>
+          <tr><th>Task type</th><th>Suggested scoring</th><th>Notes</th></tr>
+          <tr><td>MCQ</td><td>1 mark per item, or 0.5 for simple items.</td><td>Easy to mark but should be well written.</td></tr>
+          <tr><td>True/False</td><td>0.5 for T/F + 0.5 for justification if required.</td><td>Justification increases validity.</td></tr>
+          <tr><td>Matching</td><td>0.5 or 1 per item.</td><td>Good for vocabulary recognition.</td></tr>
+          <tr><td>Open questions</td><td>1–2 marks depending on expected answer.</td><td>Prepare expected answer elements.</td></tr>
+          <tr><td>Summary</td><td>Use a mini-rubric: content, coherence, language.</td><td>Avoid subjective marking.</td></tr>
+          <tr><td>Listening table</td><td>0.5 or 1 per correct piece of information.</td><td>Keep spelling tolerance reasonable when not assessing spelling.</td></tr>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <h3>O. Qualities of a Good Assessment — Adding Fairness <span class="chip">Soukaina Benarrech</span></h3>
+        <p>Beyond practicality, reliability, validity, authenticity and washback (see Principles above), a good assessment must also be <b>fair</b>:</p>
+        <div class="table-scroll"><table>
+          <tr><th>Quality</th><th>Definition</th><th>Classroom example</th><th>Common mistake</th></tr>
+          <tr><td>Validity</td><td>The task measures what it is supposed to measure.</td><td>Speaking objective assessed through role play.</td><td>Assessing speaking with only written MCQs.</td></tr>
+          <tr><td>Reliability</td><td>The score is consistent across markers or occasions.</td><td>Rubric for writing or speaking.</td><td>No criteria for correction.</td></tr>
+          <tr><td>Practicality</td><td>The task is feasible with available time and resources.</td><td>Pair speaking checklist in a large class.</td><td>Individual 10-minute oral exam for 45 learners in one hour.</td></tr>
+          <tr><td>Authenticity</td><td>The task resembles meaningful real-life language use.</td><td>Writing an email invitation.</td><td>Random isolated sentences only.</td></tr>
+          <tr><td><b>Fairness</b></td><td>Learners have equal and clear opportunities to perform.</td><td>Clear instructions and level-appropriate tasks.</td><td>Ambiguous prompts or untaught content.</td></tr>
+          <tr><td>Washback</td><td>The assessment influences learning and teaching.</td><td>Assessing communication encourages communicative practice.</td><td>Testing only memorization encourages rote learning.</td></tr>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <h3>P. CRMEF Exam Toolkit <span class="chip">Soukaina Benarrech</span></h3>
+        <details class="acc"><summary>Exam strategy — what to do when asked to…</summary><div class="acc-body">
+          <div class="table-scroll"><table>
+            <tr><th>Prompt</th><th>Fast response strategy</th></tr>
+            <tr><td>Design a quiz</td><td>List taught content → blueprint → grammar/functions/skills → marks → rubric if productive.</td></tr>
+            <tr><td>Design a test</td><td>Include appropriate skills only if required → blueprint → varied tasks → scoring criteria.</td></tr>
+            <tr><td>Design a writing task</td><td>Give context, purpose, length, required language and rubric.</td></tr>
+            <tr><td>Design a speaking task</td><td>Create situation, roles, interaction pattern, time, criteria.</td></tr>
+            <tr><td>Critique an assessment</td><td>Check alignment, validity, reliability, practicality, fairness and instructions.</td></tr>
+            <tr><td>Suggest remediation</td><td>Use assessment results to identify gaps, group learners, provide targeted practice, reassess.</td></tr>
+          </table></div>
+        </div></details>
+        <details class="acc"><summary>Worked example — CRMEF-style prompt</summary><div class="acc-body">
+          <p><b>Prompt:</b> A 1st Baccalaureate teacher has taught the units Education and Environment. Grammar: modal verbs, relative clauses, comparatives and superlatives. Functions: expressing opinions and agreement. Design a quiz.</p>
+          <div class="table-scroll"><table>
+            <tr><th>Component</th><th>Marks</th><th>Reason</th></tr>
+            <tr><td>Grammar</td><td>8</td><td>Four grammar points were taught, so each can receive a balanced share.</td></tr>
+            <tr><td>Functions</td><td>4</td><td>Two functions: opinions and agreement.</td></tr>
+            <tr><td>Writing</td><td>8</td><td>A productive task integrates grammar and functions in meaningful communication.</td></tr>
+          </table></div>
+          <p><b>Model outline:</b><br>Part I — Grammar: modal verbs, relative clauses, comparatives and superlatives through varied items.<br>Part II — Functions: dialogue completion and response.<br>Part III — Writing: paragraph expressing an opinion about an education or environment issue while using target language.</p>
+          <div class="key">Why this is strong: it does not assess reading because reading was not specified — it stays valid, practical and aligned with the taught content.</div>
+        </div></details>
+        <details class="acc"><summary>Ready-to-use templates</summary><div class="acc-body">
+          <p><b>A. General Quiz Template</b><br>English Quiz — Level: ____ Time: ____ Mark: /____<br>Part I: ____ (___ marks) · Part II: ____ (___ marks) · Part III: ____ (___ marks)<br>Rubric / scoring criteria if needed.</p>
+          <p><b>B. Writing Task Template</b><br>"Write a/an ____ of ____ words about ____. In your writing, include: ____."<br>Scoring: Task achievement ___; Organization ___; Language ___; Mechanics ___.</p>
+          <p><b>C. Speaking Task Template</b><br>Situation: ____. Student A: ____. Student B: ____. Time: ____.<br>Assessment criteria: Task achievement, fluency, accuracy, vocabulary, pronunciation, interaction.</p>
+        </div></details>
+        <details class="acc"><summary>Final checklist before submitting an assessment</summary><div class="acc-body">
+          <ul>
+            <li>☐ I assessed only what was taught or required by the prompt.</li>
+            <li>☐ Every task has a clear purpose.</li>
+            <li>☐ Instructions are short and unambiguous.</li>
+            <li>☐ The mark distribution is logical.</li>
+            <li>☐ There is variety in task types.</li>
+            <li>☐ Productive tasks have rubrics or criteria.</li>
+            <li>☐ The assessment is realistic for the time and level.</li>
+            <li>☐ Spelling, layout and numbering are checked.</li>
+          </ul>
+        </div></details>
+      </div>
     </section>
 
     <!-- MODULE 3: PLANNING, LEARNING -->
@@ -1022,6 +1219,7 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
       </div>
 
       <div class="card">
+        <h3>Basic Training Enhancements</h3>
         <div class="grid2">
           <div>
             <h4>Formal features</h4>
@@ -1150,6 +1348,7 @@ mark.hit{background:var(--ethics); color:#0b0f14; padding:0 2px; border-radius:3
 
       <div class="card">
         <h3>Essential Grammar Concepts</h3>
+        <div class="key"><b>The rule, in short:</b> Reported Speech → backshift the tense one step into the past (and adjust pronouns/time-place words). Passive Voice → Receiver (new subject) + to be (in the target tense) + Past Participle (V3).</div>
         <details class="acc"><summary>Reported (Indirect) Speech</summary><div class="acc-body">
           <p><b>Backshifting</b> — since you're reporting something said in the past, shift the original tense one step back, and adjust pronouns and time/place words.</p>
           <ul>
@@ -2249,6 +2448,19 @@ radioToggle.addEventListener('click', ()=>{
   }
 });
 
+/* ===== volume control ===== */
+const volumeSlider = document.getElementById('volumeSlider');
+const volIcon = document.getElementById('volIcon');
+function updateVolIcon(v){
+  volIcon.textContent = v == 0 ? '🔇' : v < 0.5 ? '🔉' : '🔊';
+}
+bgAudio.volume = parseFloat(volumeSlider.value);
+updateVolIcon(bgAudio.volume);
+volumeSlider.addEventListener('input', ()=>{
+  bgAudio.volume = parseFloat(volumeSlider.value);
+  updateVolIcon(bgAudio.volume);
+});
+
 /* ===== fan / AC toggle ===== */
 const fanToggle = document.getElementById('fanToggle');
 const fanIconWrap = document.getElementById('fanIconWrap');
@@ -2269,8 +2481,27 @@ function setFan(on){
   bigFanToggle.title = title;
   fanLabel.textContent = fanOn ? 'Fan: On' : 'Fan';
 }
-fanToggle.addEventListener('click', ()=> setFan(!fanOn));
-bigFanToggle.addEventListener('click', ()=> setFan(!fanOn));
+
+/* ===== fan quote pop-up ===== */
+const FAN_QUOTES = [
+  "Trying to study for finals right now is like taking an open-book exam inside a toaster.",
+  "My brain isn't retaining any information; it's just evaporating.",
+  "I asked for my mint tea 'iced', and the waiter looked at me like I committed a crime.",
+  "I am currently melting faster than my standards.",
+  "I opened the fridge today just for emotional support.",
+  "I am currently making lifelong friends with every single fan I meet."
+];
+const fanQuote = document.getElementById('fanQuote');
+let fanQuoteTimer = null;
+function showFanQuote(){
+  const pick = FAN_QUOTES[Math.floor(Math.random() * FAN_QUOTES.length)];
+  fanQuote.textContent = pick;
+  fanQuote.classList.add('show');
+  clearTimeout(fanQuoteTimer);
+  fanQuoteTimer = setTimeout(()=> fanQuote.classList.remove('show'), 4200);
+}
+fanToggle.addEventListener('click', ()=>{ setFan(!fanOn); showFanQuote(); });
+bigFanToggle.addEventListener('click', ()=>{ setFan(!fanOn); showFanQuote(); });
 document.querySelectorAll('.toc-link').forEach(l=>l.addEventListener('click', (e)=>{
   if(e.target.classList.contains('toc-check')) return;
   e.preventDefault();
